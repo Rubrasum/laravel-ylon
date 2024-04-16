@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable(); // this gets ignored for the most part
             // $table->string('firstname'); // This was added a in a later migration. Used to be 'name'
             // $table->string('lastname'); // This was added a in a later migration.
             $table->string('email')->unique();
