@@ -6,7 +6,6 @@
 <link rel="preconnect" href="https://fonts.bunny.net" />
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
 @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 <script>
     // hide the page body_container id element until its loaded
     window.onload = function() {
