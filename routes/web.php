@@ -1,11 +1,11 @@
 <?php
 
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('forms.new-people');
-});
+Route::get('/', [FormController::class, 'index'])->name('home');
+Route::post('/', [FormController::class, 'submit']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
