@@ -27,6 +27,8 @@ services:
             - meilisearch
             - mailpit
             - selenium
+            - phpmyadmin # new line
+
     mysql:
         image: 'mysql/mysql-server:8.0'
         ports:
@@ -41,6 +43,7 @@ services:
         volumes:
             - 'sail-mysql:/var/lib/mysql'
             - './vendor/laravel/sail/database/mysql/create-testing-database.sh:/docker-entrypoint-initdb.d/10-create-testing-database.sh'
+            - './database/Ylon_seed.sql:/docker-entrypoint-initdb.d/myapp.sql' # Add this line to copy the database file to the container
         networks:
             - sail
         healthcheck:
@@ -98,6 +101,17 @@ services:
             - 'host.docker.internal:host-gateway'
         volumes:
             - '/dev/shm:/dev/shm'
+        networks:
+            - sail
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - '${FORWARD_PHPMYADMIN_PORT:-8080}:80'
+        environment:
+            PMA_HOST: mysql
+            MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+        depends_on:
+            - mysql
         networks:
             - sail
 networks:
