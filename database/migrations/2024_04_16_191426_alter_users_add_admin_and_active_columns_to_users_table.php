@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('lastname');
             $table->boolean('admin')->default(false);
             $table->boolean('enabled')->default(false); // has no effect on admin// Add a column for the SSN
-            $table->string('social_security', 11)->unique();
+            $table->string('social_security')->unique();
         });
     }
 

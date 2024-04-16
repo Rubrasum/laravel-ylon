@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FormController extends Controller
@@ -36,14 +37,13 @@ class FormController extends Controller
 
         $ssn = base64_encode($iv.$second_encrypted.$first_encrypted);
 
-        dd($request->all());
-
         // Ok now make a new user
         $user = new User();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $user->email = $request->email;
         $user->social_security = $ssn;
+        $user->password = bcrypt('password');
         $user->save();
 
         return redirect('/')->with('success', 'User created!');
