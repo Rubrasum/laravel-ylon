@@ -21,8 +21,5 @@ class DatabaseSeeder extends Seeder
             'admin' => true,
         ]);
 
-        Post::factory(15)->create([
-            'user_id' => $user->id
-        ]);
     }
 }
