@@ -12,8 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('firstname');
+            $table->string('lastname');
             $table->boolean('admin')->default(false);
-            $table->boolean('enabled')->default(false); // has no effect on admin
+            $table->boolean('enabled')->default(false); // has no effect on admin// Add a column for the SSN
+            $table->string('social_security', 11)->unique();
         });
     }
 
@@ -25,6 +28,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('admin');
             $table->dropColumn('enabled');
+            $table->dropColumn('social_security');
         });
     }
 };
