@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            // $table->boolean('admin')->default(false); // This was added a in a later migration
+            // $table->boolean('enabled')->default(false); // This was added a in a later migration
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
