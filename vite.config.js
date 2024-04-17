@@ -11,4 +11,7 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    hmr: {
+        host: 'localhost',
+    },
 });
