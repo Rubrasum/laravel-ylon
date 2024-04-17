@@ -29,10 +29,10 @@
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead>
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">First Name</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Last Name</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Active</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" onclick="sortTable(0)">First Name</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" onclick="sortTable(1)">Last Name</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" onclick="sortTable(2)">Email</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" onclick="sortTable(3)">Active</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                     <span class="sr-only">Toggle Active</span>
                                 </th>
@@ -81,11 +81,30 @@
     @endif
 
     <script>
-        function confirmToggle(toggle_type, name, user_id) {
-            if (confirm('Are you sure you want to ' + toggle_type + ' ' + name + '?')) {
-                document.getElementById('toggle-user-form-'+user_id).submit();
+        function confirmToggle(toggleType, name, userID) {
+            if (confirm('Are you sure you want to ' + toggleType + ' ' + name + '?')) {
+                document.getElementById('toggle-user-form-'+userID).submit();
             }
         }
+
+        function sortTable(colIndex) {
+            const table = document.querySelector('table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            // sort the rows
+            const sortedRows = rows.sort((a, b) => {
+                const aColText = a.querySelector(`td:nth-child(${colIndex + 1})`).textContent.trim();
+                const bColText = b.querySelector(`td:nth-child(${colIndex + 1})`).textContent.trim();
+
+                return aColText > bColText ? 1 : -1;
+            });
+
+            // append back to table to prevent losing events and other DOM element associations
+            tbody.innerHTML = '';
+            tbody.append(...sortedRows);
+        }
+
     </script>
 
 </x-app-layout>
