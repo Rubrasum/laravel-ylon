@@ -15,12 +15,12 @@
         </div>
     </div>
     <div class="py-12">
-        @if ($users->count() < 2)
+        @if ($users->count() > 1)
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="sm:flex sm:items-center">
                 <div class="sm:flex-auto">
                     <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
-                    <p class="mt-2 text-sm text-gray-700">A list of all the users including their first name, last name, email and ssn .</p>
+                    <p class="mt-2 text-sm text-gray-700">A list of all the users including their first name, last name, email (ssn's are stored but not shown here ) .</p>
                 </div>
             </div>
             <div class="mt-8 flow-root">
