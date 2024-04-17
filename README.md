@@ -29,9 +29,11 @@ After running npm dev you should be able to see hot module replacement when you 
 
 If you used my backup sql dump, you should see 2 users. If you only seeded, you should see a warning message.
 
-/ = FORM
-/login = LOGIN
-/dashboard = ADMIN VIEW
+`/` = FORM
+
+`/login` = LOGIN
+
+`/dashboard` = ADMIN VIEW
 
 
 
