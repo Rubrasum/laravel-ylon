@@ -2,7 +2,7 @@
 
 tiny laravel site with form
 
-## Installation instructions
+## First time setup instructions (bare bones)
 
 - Clone the repo
 - Update the env file with APP_BC and DB logins (Or just use mine).
@@ -30,6 +30,27 @@ After running npm dev you should be able to see hot module replacement when you 
 
 
 If you used my backup sql dump, you should see 2 users. If you only seeded, you should see a warning message.
+
+
+
+## How would I make this better if I had more time - In Order
+
+1. Update the Docker compose file to not rely on sail.
+2. Captcha on the form.
+3. Create a separate "submissions" table in db and reset Users table to original.
+4. A full site layout.
+5. Option to add other admin logins.
+6. Analytics on the form.
+7. Add a bit more session logic to prevent duplicate entries.
+8. Allow the option to peak the decrypted SSN numbers.
+9. Update user auth to Jetstream and build custom.
+10. Modern frontend framework design, reactive components and SPA admin.
+
+## Challenges to Overcome
+
+I have a lot of experiences maintaining projects but not a lot of experience building new projects. Some of the basics just took me way too long here, as well as some of the basic early decisions like authentication options and the best way to structure the db schema and frontend.
+
+I did take some time this year to work on more projects from the ground up, but I focused a bit too much on trying to solve large backend problems. I have resolved to work on smaller projects so that I can get more reps in on the basic web admin and frontend tasks.
 
 
 
@@ -160,19 +181,4 @@ remember to update APP_KEY, DB and APP_BC values
 
 
 
-## How would I make this better if I had more time - In Order
-
-1. Update the Docker compose file to not rely on sail.
-2. Captcha on the form.
-3. Create a separate "submissions" table in db and reset Users table to original.
-4. A full site layout.
-5. Option to add other admin logins.
-6. Analytics on the form.
-7. Add a bit more session logic to prevent duplicate entries.
-8. Allow the option to peak the decrypted SSN numbers.
-9. Update user auth to Jetstream and build custom.
-10. Modern frontend framework design, reactive components and SPA admin.
-
-
-
-## (END NOTES
+## (END NOTES)
