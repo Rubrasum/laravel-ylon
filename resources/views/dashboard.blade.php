@@ -29,10 +29,10 @@
                         <table class="min-w-full divide-y divide-gray-300">
                             <thead>
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0" onclick="sortTable(0)">First Name</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" onclick="sortTable(1)">Last Name</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" onclick="sortTable(2)">Email</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900" onclick="sortTable(3)">Active</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0 cursor-pointer hover:shadow-lg" onclick="sortTable(0)">First Name</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:shadow-lg" onclick="sortTable(1)">Last Name</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:shadow-lg" onclick="sortTable(2)">Email</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer hover:shadow-lg" onclick="sortTable(3)">Active</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-0">
                                     <span class="sr-only">Toggle Active</span>
                                 </th>
@@ -55,6 +55,7 @@
                                     </form>
 
                                 </td>
+                                <td class="hidden">{{ $user->firstname }}</td>
                             </tr>
                             @endforeach
                             <!-- More people... -->
@@ -87,17 +88,33 @@
             }
         }
 
+        var last_sorted_index = -1;
+        var reversed = 1;
+
         function sortTable(colIndex) {
             const table = document.querySelector('table');
             const tbody = table.querySelector('tbody');
             const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            // determine what to do with this sort
+            if (last_sorted_index === colIndex && reversed === -1) { // if clicked 3 times, reset
+                reversed = 1;
+                last_sorted_index = -1
+                // get table last column index of first row
+                colIndex = rows[0].querySelectorAll('td').length - 1;
+            } else if (last_sorted_index === colIndex) {  // if clicked twice, desc
+                reversed = -1;
+            } else {
+                last_sorted_index = colIndex;  // if clicked once, asc
+                reversed = 1;
+            }
 
             // sort the rows
             const sortedRows = rows.sort((a, b) => {
                 const aColText = a.querySelector(`td:nth-child(${colIndex + 1})`).textContent.trim();
                 const bColText = b.querySelector(`td:nth-child(${colIndex + 1})`).textContent.trim();
 
-                return aColText > bColText ? 1 : -1;
+                return (aColText > bColText ? -1 : 1) * reversed ;
             });
 
             // append back to table to prevent losing events and other DOM element associations
