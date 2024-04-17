@@ -1,66 +1,184 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Ylon
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+tiny laravel site with form
 
-## About Laravel
+## First time setup instructions (bare bones)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Clone the repo
+- Update the env file with APP_BC and DB logins (Or just use mine).
+- Start the sail instance from inside the repo's directory. You might not have sail in your PATH so you can use `./vendor/bin/sail up -d` from the directory as well.
+    - `sail up -d`
+    - `./vendor/bin/sail up -d`
+    - OR `docker-compose up -d`. They're pretty similar but I have mostly used sail up and down.
+- Use `sail root-shell` to enter the container (or just prepend the next few commands with "sail".)
+    - `sail root-shell`
+    - `composer install `
+    - `php artisan key:generate`
+    - `npm install`
+    - `php artisan:migrate --seed` // Add --seed will seed the admin. This will cause an error if you import the sql dump I provided because the user row for admin will be duplicate.
+    - `npm run dev`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+You should now be able to login at `localhost/login`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Username: josephbetbeze@gmail.com
+- password: password
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+After running npm dev you should be able to see hot module replacement when you edit the views.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+If you used my backup sql dump, you should see 2 users. If you only seeded, you should see a warning message.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
 
-## Contributing
+## How would I make this better if I had more time - In Order
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+1. Update the Docker compose file to not rely on sail.
+2. Captcha on the form.
+3. Create a separate "submissions" table in db and reset Users table to original.
+4. A full site layout.
+5. Option to add other admin logins.
+6. Analytics on the form.
+7. Add a bit more session logic to prevent duplicate entries.
+8. Allow the option to peak the decrypted SSN numbers.
+9. Update user auth to Jetstream and build custom.
+10. Modern frontend framework design, reactive components and SPA admin.
 
-## Code of Conduct
+## Challenges to Overcome
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+I have a lot of experiences maintaining projects but not a lot of experience building new projects. Some of the basics just took me way too long here, as well as some of the basic early decisions like authentication options and the best way to structure the db schema and frontend.
 
-## Security Vulnerabilities
+I did take some time this year to work on more projects from the ground up, but I focused a bit too much on trying to solve large backend problems. I have resolved to work on smaller projects so that I can get more reps in on the basic web admin and frontend tasks.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Lets build a Laravel App from Scratch (Notes)
+
+Needs form with First, Last, Email and SSN
+
+- Entry fields need to be in a single line that spans the width of the web browser
+- and responsive
+
+Admin
+
+- URL for admin, login, registration
+
+admin page people should be sortable by each field
+
+- display all people
+
+- sortable table.
+- enable/disable people + validation prompt.
+
+
+
+Git
+
+- Make main and dev branch
+
+
+
+Dev Environment
+
+- Ubuntu 22.04 docker container using docker Compose configured as a typical LAMP stack.
+- Basic Laravel instance
+- mysql container
+- container should run code locally from the repo so it can be edited in real time.
+
+
+
+## Starting
+
+Install Laravel for Repo start
+
+​	`curl -s https://laravel.build/laravel-ylon | bash`
+
+
+
+Setup the Repo
+
+```
+git init
+git add .
+git commit -m 'hi first commit'
+# Make sure you have github CLI installed for next part)
+# if not... on first setup....
+gh auth login
+#follow instructions to login with ssh or https
+# push repo to gh
+gh repo create laravel-ylon --public --source=.
+
+```
+
+Added phpmyadmin to the docker-compose
+
+#### Install breeze
+
+```
+php artisan breeze:install
+ 
+# and then do these generic startup steps
+php artisan migrate
+npm install
+npm run dev
+```
+
+#### Updating User table with necessary columns
+
+active (enabled) and admin toggles
+
+**Created this alteration file**
+
+`sail artisan make:migration alter_users_add_admin_and_active_columns_to_users_table --table=users`
+
+**Migrations changed a lot from this, but this was the starting point. **
+
+```
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->boolean('admin')->default(false);
+            $table->boolean('enabled')->default(false); // has no effect on admin
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('admin');
+            $table->dropColumn('enabled');
+        });
+    }
+};
+```
+
+### Tailwind NPM & Vite
+
+Tailwind and Vite seem to act up sometime with this setup. The main problem is hmr doesn't work by default (at least in Windows WSL with Sail setup.) You need to add this line to vite config
+
+```
+,
+hmr: {
+    host: 'localhost',
+},
+```
+
+as well as make sure all the files are correctly selected in tailwind config files. By default there should be no problems with the config files.
+
+```
+remember to update APP_KEY, DB and APP_BC values
+```
+
+
+
+## (END NOTES)
