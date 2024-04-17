@@ -46,9 +46,14 @@
                                     {{ $user->firstname }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->lastname }}</td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->email }}</td>
-                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->active ? "Active" : "Inactive" }}</td>
+                                <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $user->enabled ? "Active" : "Inactive" }}</td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Toggle Active<span class="sr-only"></span></a>
+                                    <form id="toggle-user-form-{{ $user->id }}" action="{{ route('user-toggle', $user->id) }}" method="POST">
+                                        @csrf
+                                        @method('POST')
+                                        <a href="javascript:void(0)" onclick="confirmToggle('{{ $user->enabled ? 'Deactivate': 'Activate'  }}', '{{ ucfirst($user->firstname) }}', {{ $user->id }})"  class="text-indigo-600 hover:text-indigo-900">{{ $user->enabled ? 'Deactivate': 'Activate' }}<span class="sr-only"></span></a>
+                                    </form>
+
                                 </td>
                             </tr>
                             @endforeach
@@ -74,5 +79,13 @@
             {{ session('success') }}
         </div>
     @endif
+
+    <script>
+        function confirmToggle(toggle_type, name, user_id) {
+            if (confirm('Are you sure you want to ' + toggle_type + ' ' + name + '?')) {
+                document.getElementById('toggle-user-form-'+user_id).submit();
+            }
+        }
+    </script>
 
 </x-app-layout>
